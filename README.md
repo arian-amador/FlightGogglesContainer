@@ -5,13 +5,13 @@ A Linux container running Unity3D & Flight Goggles ROS framework
 
 *Note: nvidia-docker2 and cuda >= 10.0 is required to run this container.*
 
-# Build framework and client
+# Build framework and client bindings
 
 ```
-$] git clone https://github.com/arian-amador/FlightGogglesContainer
-$] cd FlightGogglesContainer
-$] sudo docker build -t flight-goggles Framework
-$] sudo docker build -t flight-goggles-client ClientBindings
+git clone https://github.com/arian-amador/FlightGogglesContainer
+cd FlightGogglesContainer
+docker build -t flight-goggles Framework
+docker build -t flight-goggles-client ClientBindings
 ```
 
 # Run
@@ -20,28 +20,28 @@ $] sudo docker build -t flight-goggles-client ClientBindings
 
 For a GUI Application to run, an XServer is needed which is not available inside the container.
 
-Share the hosts XServer with the container use the following flags.
+Share the hosts XServer with the container:
 
  - -v "$HOME/.Xauthority:/root/.Xauthority:rw"
  - -e DISPLAY
 
-Share the hosts network stack with the container use the following flag.
+Share the hosts network stack with the container:
  - --net=host
 
-Share the hosts GPU with the container use the follow flag.
+Share the hosts GPU with the container:
  - --runtime=nvidia
 
-Share the hosts IPC namespace for shared memory space.
+Share the hosts IPC namespace for shared memory space:
  - --ipc=host
 
 ### Client Bindings
 ```
-$] sudo docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" --ipc=host flight-goggles-client:latest
+docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" --ipc=host flight-goggles-client:latest
 ```
 
 ### Framework
 ```
-$] sudo docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" --ipc=host flight-goggles:latest
+docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" --ipc=host flight-goggles:latest
 ```
 
 # Resources
