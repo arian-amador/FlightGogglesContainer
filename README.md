@@ -5,30 +5,43 @@ A Linux container running Unity3D & Flight Goggles ROS framework
 
 *Note: nvidia-docker2 and cuda >= 10.0 is required to run this container.*
 
-# Build
+# Build framework and client
 
 ```
 $] git clone https://github.com/arian-amador/FlightGogglesContainer
-$] sudo docker build -t flight-goggles FlightGogglesContainer
+$] cd FlightGogglesContainer
+$] sudo docker build -t flight-goggles Framework
+$] sudo docker build -t flight-goggles-client ClientBindings
 ```
 
 # Run
 
+### Docker Specifics
+
 For a GUI Application to run, an XServer is needed which is not available inside the container.
 
-In order to share the hosts XServer with the container use the following flags.
+Share the hosts XServer with the container use the following flags.
 
  - -v "$HOME/.Xauthority:/root/.Xauthority:rw"
  - -e DISPLAY
 
-In order to share the hosts network stack with the container use the following flag.
+Share the hosts network stack with the container use the following flag.
  - --net=host
- 
-In order to share the hosts GPU with the container use the follow flag.
+
+Share the hosts GPU with the container use the follow flag.
  - --runtime=nvidia
 
+Share the hosts IPC namespace for shared memory space.
+ - --ipc=host
+
+### Client Bindings
 ```
-$] sudo docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" flight-goggles:latest
+$] sudo docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" --ipc=host flight-goggles-client:latest
+```
+
+### Framework
+```
+$] sudo docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" --ipc=host flight-goggles:latest
 ```
 
 # Resources
@@ -36,3 +49,4 @@ $] sudo docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME
  - Nvidia+OpenGL images: https://hub.docker.com/r/nvidia/opengl/
  - Unity3D Docker install: https://github.com/thomasquintana/AirSimContainer
  - FlightGoggles framework: https://github.com/AgileDrones/FlightGoggles
+ - FlightGoggles Client Bindings: https://github.com/AgileDrones/FlightGogglesClientBindings/
