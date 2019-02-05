@@ -1,6 +1,5 @@
 # docker build -t <container-tag> .
-# xhost +si:localuser:root
-# docker run --runtime=nvidia -ti --network=host -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix <container-tag>
+# docker run --runtime=nvidia --network=host -ti --rm -e DISPLAY -v "$HOME/.Xauthority:/root/.Xauthority:rw" <container-tag>
 
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 ARG DEBIAN_FRONTEND=noninteractive
