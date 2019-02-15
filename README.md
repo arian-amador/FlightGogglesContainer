@@ -36,7 +36,8 @@ Share the hosts IPC namespace for shared memory space.
 - --ipc=host
 
 Share the hosts Vulkan config and module.
-The module below will vary dependin on the hosts Nvidia drivers.
+
+The module below will vary depending on the hosts Nvidia drivers.
 
 - -v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d
 - -v /usr/lib/x86_64-linux-gnu/libnvidia-glvkspirv.so.410.48:/usr/lib/x86_64-linux-gnu/libnvidia-glvkspirv.so.410.48
